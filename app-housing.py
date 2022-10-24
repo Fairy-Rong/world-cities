@@ -8,7 +8,7 @@ st.title('California Housing Data(1990) by Yerong Wu')
 df = pd.read_csv('housing 2.csv')
 
 # note that you have to use 0.0 and 40.0 given that the data type of population is float
-median_housing_price_filter = st.slider('Median House Price:', 0, 500001, 20000) # min, max, default
+median_housing_price_filter = st.slider('Median House Price:', 0, 500001, 200000) # min, max, default
 
 
 
@@ -31,9 +31,11 @@ elif level == 'Median':
     df = df[(df.median_income > 2.5) & (df.median_income < 4.5)]
 
 elif level == 'High':
-    df = df[df.median_income > 4.5]
-# filter by population
-# df = df[df.population >= population_filter]
+    df = df[df.median_income >= 4.5]
+
+
+# filter by house value
+df = df[df.median_house_value <= median_housing_price_filter]
 
 # filter by location
 df = df[df.ocean_proximity.isin(location_filter)]
